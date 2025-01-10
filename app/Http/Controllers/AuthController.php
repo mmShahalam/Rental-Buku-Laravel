@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class AuthController extends Controller
 {
@@ -22,10 +24,21 @@ class AuthController extends Controller
             'password' => ['required'],
         ]);
 
+        // apalah login valid?
         if (Auth::attempt($credentials)) {
-            $request->session()->regenerate();
- 
-            return redirect()->intended('dashboard');
+            // apakah status user active? (terdaftar tapi belum active)
+            if(Auth::user()->status != 'active'){
+                Session::flash('status', 'failed');
+                Session::flash('message', 'Your account is not active yet. Please contact admin!');
+                return redirect('/login');            
+            }
+            // $request->session()->regenerate();
+            // return redirect()->intended('dashboard');
         }
+
+        // belum terdaftar samsek
+        Session::flash('status', 'failed');
+        Session::flash('message', 'Login Invalid');
+        return redirect('/login'); 
     }
 }
