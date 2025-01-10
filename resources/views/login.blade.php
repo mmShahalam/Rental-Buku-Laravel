@@ -27,7 +27,7 @@
 </style>
 
 <body>
-    <div class="main d-flex justify-content-center align-items-center">
+    <div class="main d-flex flex-column justify-content-center align-items-center">
         @if (session('status'))
         <div class="alert alert-danger">
             {{session('message')}}
