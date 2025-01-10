@@ -28,6 +28,11 @@
 
 <body>
     <div class="main d-flex justify-content-center align-items-center">
+        @if (session('status'))
+        <div class="alert alert-danger">
+            {{session('message')}}
+        </div>
+        @endif
         <div class="login-box">
             <form action="" method="post">
                 @csrf
