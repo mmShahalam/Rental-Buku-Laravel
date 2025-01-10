@@ -17,6 +17,15 @@ class AuthController extends Controller
 
     public function authenticating(Request $request)
     {
-        dd('ini halaman auth');
+        $credentials = $request->validate([
+            'username' => ['required'],
+            'password' => ['required'],
+        ]);
+
+        if (Auth::attempt($credentials)) {
+            $request->session()->regenerate();
+ 
+            return redirect()->intended('dashboard');
+        }
     }
 }
