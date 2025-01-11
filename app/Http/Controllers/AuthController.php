@@ -32,8 +32,16 @@ class AuthController extends Controller
                 Session::flash('message', 'Your account is not active yet. Please contact admin!');
                 return redirect('/login');            
             }
+
+            if(Auth::user()->role_id == 1) {
+                return redirect('dashboard');
+            }
+            
+            if(Auth::user()->role_id == 2) {
+                return redirect('profile');
+            }
             // $request->session()->regenerate();
-            // return redirect()->intended('dashboard');
+            // return redirect();
         }
 
         // belum terdaftar samsek
