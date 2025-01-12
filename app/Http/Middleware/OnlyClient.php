@@ -16,8 +16,12 @@ class OnlyClient
      */
     public function handle(Request $request, Closure $next): Response
     {
+        // bukan client
         if(Auth::user()->role_id !=2) {
             return redirect('books');
         }
+
+        // client
+        return $next($request);
     }
 }
