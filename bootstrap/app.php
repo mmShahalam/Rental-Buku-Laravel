@@ -2,6 +2,7 @@
 
 use App\Http\Middleware\OnlyAdmin;
 use App\Http\Middleware\OnlyClient;
+use App\Http\Middleware\OnlyGuest;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -17,7 +18,8 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias([
             'auth' => Authenticate::class,
             'only_admin' => OnlyAdmin::class,
-            'only_client' => OnlyClient::class
+            'only_client' => OnlyClient::class,
+            'only_guest' => OnlyGuest::class
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
